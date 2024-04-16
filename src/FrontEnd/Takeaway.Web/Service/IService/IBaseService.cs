@@ -1,0 +1,9 @@
+﻿using Takeaway.Web.Models;
+
+namespace Takeaway.Web.Service.IService
+{
+	public interface IBaseService
+	{
+		Task<ResponseDto?> SendAsync(RequestDto requestDto);
+	}
+}
