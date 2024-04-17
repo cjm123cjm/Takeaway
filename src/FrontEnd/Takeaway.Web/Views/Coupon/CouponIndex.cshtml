@@ -1,0 +1,46 @@
+﻿@model IEnumerable<CouponDto>
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="text-white">优惠卷列表</h1>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <div class="row pb-3">
+            <div class="col-6"></div>
+            <div class="col-6 text-end">
+                <a class="btn btn-outline-primary" asp-action="CouponCreate">
+                    <i class="bi bi-plus-square"></i>
+                    创建新的优惠卷
+                </a>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>优惠码</th>
+                    <th>优惠金额</th>
+                    <th>最低付款价格</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.CouponCode</td>
+                        <td>@item.DiscountAmount.ToString("c")</td>
+                        <td>@item.MinAmount.ToString("c")</td>
+                        <td>
+                            <a class="btn btn-danger" asp-action="CouponDelete" asp-route-couponId="@item.CouponId">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
