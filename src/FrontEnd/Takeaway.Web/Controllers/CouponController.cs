@@ -21,6 +21,10 @@ namespace Takeaway.Web.Controllers
             {
                 list = JsonConvert.DeserializeObject<List<CouponDto>>(Convert.ToString(response.Result));
             }
+            else
+            {
+                TempData["error"] = response?.Message;
+            }
             return View(list);
         }
 
@@ -38,6 +42,7 @@ namespace Takeaway.Web.Controllers
                 var response = await _couponService.CreateCouponAsync(couponDto);
                 if (response != null && response.IsSuccess)
                 {
+                    TempData["success"] = "创建成功";
                     return RedirectToAction("CouponIndex");
                 }
                 else
@@ -58,7 +63,10 @@ namespace Takeaway.Web.Controllers
                 list = JsonConvert.DeserializeObject<CouponDto>(Convert.ToString(response.Result));
                 return View(list);
             }
-
+            else
+            {
+                TempData["error"] = response?.Message;
+            }
             return NotFound();
         }
 
@@ -69,9 +77,13 @@ namespace Takeaway.Web.Controllers
             var response = await _couponService.DeleteCouponAsync(couponDto.CouponId);
             if (response != null && response.IsSuccess)
             {
+                TempData["success"] = "删除成功";
                 return RedirectToAction(nameof(CouponIndex));
             }
-            ModelState.AddModelError("CouponDelete", "删除失败");
+            else
+            {
+                ModelState.AddModelError("CouponDelete", "删除失败");
+            }
             return View(couponDto);
         }
     }
