@@ -85,5 +85,22 @@ namespace Takeaway.Services.AuthAPI.Repositories
 
             return loginResponseDto;
         }
+
+        public async Task<bool> AssigenRoleAsync(string email, string roleName)
+        {
+            var user = await _db.ApplicationUser.FirstOrDefaultAsync(t => t.Email == email);
+            if (user != null)
+            {
+                var roleExists = await _roleManager.RoleExistsAsync(roleName);
+                if (!roleExists)
+                {
+                    await _roleManager.CreateAsync(new IdentityRole(roleName));
+                }
+                var result = await _userManager.AddToRoleAsync(user, roleName);
+                if (result.Succeeded)
+                    return true;
+            }
+            return false;
+        }
     }
 }

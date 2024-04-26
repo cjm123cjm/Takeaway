@@ -57,5 +57,21 @@ namespace Takeaway.Services.AuthAPI.Controllers
                 return Ok(_responseDto);
             }
         }
+
+        [HttpPost("assginrole")]
+        public async Task<IActionResult> AssginRole([FromBody] RegisterRequestDto registerRequestDto)
+        {
+            var result = await _authRepository.AssigenRoleAsync(registerRequestDto.Email,registerRequestDto.Role.ToUpper());
+            if (!result)
+            {
+                _responseDto.IsSuccess = false;
+                _responseDto.Message = "角色设置失败";
+                return BadRequest(_responseDto);
+            }
+            else
+            {
+                return Ok(_responseDto);
+            }
+        }
     }
 }

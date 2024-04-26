@@ -1,4 +1,4 @@
-﻿namespace Takeaway.Services.AuthAPI.Models.Dtos
+﻿namespace Takeaway.Web.Models.Auth
 {
     public class RegisterRequestDto
     {

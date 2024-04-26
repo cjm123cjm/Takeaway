@@ -6,5 +6,6 @@ namespace Takeaway.Services.AuthAPI.Repositories
     {
         Task<string> RegisterAsync(RegisterRequestDto registerRequestDto);
         Task<LoginResponseDto> LoginAsync(LoginRequestDto loginRequestDto);
+        Task<bool> AssigenRoleAsync(string email, string roleName);
     }
 }
