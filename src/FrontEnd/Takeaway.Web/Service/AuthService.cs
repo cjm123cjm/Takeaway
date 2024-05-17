@@ -30,7 +30,7 @@ namespace Takeaway.Web.Service
                 ApiType = SD.ApiType.POST,
                 Url = SD.AuthAPIBase + "/api/auth/login",
                 Data = loginRequest
-            });
+            }, withBearer: false);
         }
 
         public async Task<ResponseDto?> RegisterAsync(RegisterRequestDto registerRequestDto)
@@ -40,7 +40,7 @@ namespace Takeaway.Web.Service
                 ApiType = SD.ApiType.POST,
                 Url = SD.AuthAPIBase + "/api/auth/register",
                 Data = registerRequestDto
-            });
+            }, withBearer: false);
         }
     }
 }

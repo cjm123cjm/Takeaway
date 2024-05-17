@@ -6,6 +6,7 @@
 		public static string AuthAPIBase { get; set; }
 		public static string RoleName = "ADMIN";
 		public static string RoleCustomer = "CUSTOMER";
+        public static string TokenCookie = "JWTToken";
         public enum ApiType
 		{
 			GET,

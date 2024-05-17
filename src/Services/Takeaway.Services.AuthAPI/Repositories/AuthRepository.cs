@@ -71,7 +71,8 @@ namespace Takeaway.Services.AuthAPI.Repositories
                 }
                 else
                 {
-                    var token = _jwtTokenGenerator.GenerateToken(user);
+                    var roles = await _userManager.GetRolesAsync(user);
+                    var token = _jwtTokenGenerator.GenerateToken(user, roles);
                     loginResponseDto.UserDto = new UserDto
                     {
                         Id = user.Id,

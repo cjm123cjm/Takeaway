@@ -4,6 +4,6 @@ namespace Takeaway.Services.AuthAPI.Services
 {
     public interface IJwtTokenGenerator
     {
-        string GenerateToken(ApplicationUser applicationUser);
+        string GenerateToken(ApplicationUser applicationUser, IEnumerable<string> roles);
     }
 }

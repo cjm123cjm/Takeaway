@@ -12,9 +12,11 @@
         <div class="row">
             <div class="col-12 col-md-6 offset-md-3 pd-2">
                 <input asp-for="UserName" class="form-control" placeholder="用户名...."/>
+                <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
             <div class="col-12 col-md-6 offset-md-3 pd-2">
                 <input asp-for="Password" class="form-control" placeholder="密码...." />
+                <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="col-12 col-md-6 offset-md-3 pd-2">
                 <button type="submit" class="form-control btn btn-success" value="登录">登录</button>
@@ -22,3 +24,7 @@
         </div>
     </div>
 </form>
+
+@section Srcipts{
+    <partial name="_ValidationScriptsPartial" />
+}
