@@ -1,0 +1,63 @@
+﻿@model ProductDto
+
+<form asp-action="ProductDelete">
+    <br />
+    <div class="container border p-3">
+        <h1 class="text-white text-center">删除产品</h1>
+        <input type="hidden" asp-for="ProductId" />
+
+        <hr />
+
+        <div class="row">
+            <div class="col-2">
+                <label class="control-label pt-2" style="font-size:20px;" asp-for="Name">
+                    产品名称
+                </label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="Name" disabled class="form-control" />
+            </div>
+            <div class="col-2">
+                <label class="control-label pt-2" style="font-size:20px;" asp-for="Description">
+                    产品描述
+                </label>
+            </div>
+            <div class="col-10 pb-3">
+                <textarea asp-for="Description" disabled class="form-control" rows="5"></textarea>
+            </div>
+            <div class="col-2">
+                <label class="control-label pt-2" style="font-size:20px;" asp-for="CategoryName">
+                    产品类别
+                </label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="CategoryName" disabled class="form-control" />
+            </div>
+            <div class="col-2">
+                <label class="control-label pt-2" style="font-size:20px;" asp-for="Price">
+                    产品价格
+                </label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="Price" disabled class="form-control" />
+            </div>
+            <div class="col-2">
+                <label class="control-label pt-2" style="font-size:20px;" asp-for="ImageUrl">
+                    产品图片
+                </label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="ImageUrl" disabled class="form-control" type="file" />
+            </div>
+
+            <div class="col-5 offset-2">
+                <a class="btn-primary btn form-control" asp-action="ProductIndex">返回列表</a>
+            </div>
+            <div class="col-5 offset-2">
+                <input type="submit" value="创建" class="btn btn-success form-control" />
+            </div>
+        </div>
+    </div>
+</form>
+
+

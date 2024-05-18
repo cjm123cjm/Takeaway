@@ -45,7 +45,7 @@ namespace Takeaway.Services.ProductAPI.Repositories
         /// <returns></returns>
         public async Task<IEnumerable<ProductDto>> GetProductByNameAsync(string name)
         {
-            FilterDefinition<Product> filter = Builders<Product>.Filter.Eq(t => t.Name, name);
+            FilterDefinition<Product> filter = Builders<Product>.Filter.StringIn(t => t.Name, name);
 
             var products = await _productContext.Products.Find(filter).ToListAsync();
             return _mapper.Map<IEnumerable<ProductDto>>(products);

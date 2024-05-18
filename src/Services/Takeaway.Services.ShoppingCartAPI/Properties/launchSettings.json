@@ -4,17 +4,17 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:53380",
+      "applicationUrl": "http://localhost:33132",
       "sslPort": 0
     }
   },
   "profiles": {
-    "Takeaway.Services.ProductAPI": {
+    "Takeaway.Services.ShoppingCartAPI": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "http://localhost:7000",
+      "applicationUrl": "http://localhost:5115",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
