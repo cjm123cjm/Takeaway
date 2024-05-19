@@ -107,7 +107,7 @@ namespace Takeaway.Web.Controllers
             {
                 new SelectListItem
                 {
-                    Text=SD.RoleCustomer,
+                    Text=SD.RoleName,
                     Value=SD.RoleName
                 },
                 new SelectListItem

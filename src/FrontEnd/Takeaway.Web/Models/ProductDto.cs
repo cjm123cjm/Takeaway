@@ -4,7 +4,7 @@ namespace Takeaway.Web.Models
 {
     public class ProductDto
     {
-        public string ProductId { get; set; }
+        public string ProductId { get; set; } = string.Empty;
         [Required]
         [StringLength(50)]
         public string Name { get; set; } = null!;

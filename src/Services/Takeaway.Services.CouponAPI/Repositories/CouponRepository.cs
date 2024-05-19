@@ -33,8 +33,8 @@ namespace Takeaway.Services.CouponAPI.Repositories
 		{
 			using var conn = new NpgsqlConnection(_configuration.GetConnectionString("CouponConnectionString"));
 
-			var coupon = await conn.QueryFirstOrDefaultAsync<Coupon>
-				("SELECT * FROM Coupon where CouponId={Id}", new { Id = id });
+			var coupon = await conn.QueryFirstOrDefaultAsync<Coupon?>
+				("SELECT * FROM Coupon where CouponId=@Id", new { Id = id });
 
 			return _mapper.Map<CouponDto?>(coupon);
 		}
@@ -43,8 +43,8 @@ namespace Takeaway.Services.CouponAPI.Repositories
 		{
 			using var conn = new NpgsqlConnection(_configuration.GetConnectionString("CouponConnectionString"));
 
-			var coupon = await conn.QueryFirstOrDefaultAsync<Coupon>
-				("SELECT * FROM Coupon where lower(CouponCode)={CouponCode}", new { CouponCode = code.ToLower() });
+			var coupon = await conn.QueryFirstOrDefaultAsync<Coupon?>
+				("SELECT * FROM Coupon where lower(CouponCode)=@CouponCode", new { CouponCode = code.ToLower() });
 
 			return _mapper.Map<CouponDto?>(coupon);
 		}
@@ -80,7 +80,7 @@ namespace Takeaway.Services.CouponAPI.Repositories
 			using var connextion = new NpgsqlConnection(_configuration.GetConnectionString("CouponConnectionString"));
 
 			var affected = await connextion.ExecuteAsync
-				("DELETE Coupon Where CouponId=@CouponId",
+				("DELETE from Coupon Where CouponId=@CouponId",
 				new { CouponId = id });
 
 			if (affected == 0)

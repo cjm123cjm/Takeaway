@@ -5,6 +5,7 @@ using Takeaway.Services.CouponAPI.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(option =>
 {
@@ -37,6 +38,7 @@ builder.Services.AddScoped<ICouponRepository, CouponRepository>();
 builder.AddAppAuthetication();
 
 var app = builder.Build();
+app.MigrateDatabase<Program>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

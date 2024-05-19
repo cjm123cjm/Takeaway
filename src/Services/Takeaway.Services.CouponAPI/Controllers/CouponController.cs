@@ -91,7 +91,7 @@ namespace Takeaway.Services.CouponAPI.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<ResponseDto> AddCoupon([FromBody] CouponDto coupon)
         {
             try
@@ -114,7 +114,7 @@ namespace Takeaway.Services.CouponAPI.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<ResponseDto> UpdateCoupon([FromBody] CouponDto coupon)
         {
             try
@@ -137,7 +137,7 @@ namespace Takeaway.Services.CouponAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<ResponseDto> DeletCoupon(int id)
         {
             try

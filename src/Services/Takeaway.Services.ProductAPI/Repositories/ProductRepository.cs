@@ -34,7 +34,7 @@ namespace Takeaway.Services.ProductAPI.Repositories
         /// <returns></returns>
         public async Task<ProductDto> GetProductAsync(string id)
         {
-            var product = await _productContext.Products.FindAsync(t => t.ProductId == id);
+            var product = await _productContext.Products.Find(t => t.ProductId == id).FirstOrDefaultAsync();
             return _mapper.Map<ProductDto>(product);
         }
 

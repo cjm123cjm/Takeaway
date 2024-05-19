@@ -8,6 +8,7 @@
         <hr />
 
         <div class="row">
+            @Html.ValidationMessage("Coupon",new{@class="text-danger"})
             <input asp-for="CouponId" class="form-control" type="hidden" />
             <div class="col-2">
                 <label class="control-label pt-2" style="font-size:20px;" asp-for="CouponCode">
@@ -40,7 +41,7 @@
             <div class="col-5 offset-2">
                 <a class="btn-primary btn form-control" asp-action="CouponIndex">返回列表</a>
             </div>
-            <div class="col-5 offset-2">
+            <div class="col-5">
                 <input type="submit" value="删除" class="btn btn-danger form-control" />
             </div>
         </div>
