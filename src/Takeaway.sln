@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Takeaway.Services.AuthAPI",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Takeaway.Services.ProductAPI", "Services\Takeaway.Services.ProductAPI\Takeaway.Services.ProductAPI.csproj", "{E7963A37-688D-4673-ACA6-15AA4729C540}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Takeaway.Services.ShoppingCartAPI", "Services\Takeaway.Services.ShoppingCartAPI\Takeaway.Services.ShoppingCartAPI.csproj", "{D52CD11B-2DD8-4855-B7EA-28C683EA91AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Takeaway.Services.ShoppingCartAPI", "Services\Takeaway.Services.ShoppingCartAPI\Takeaway.Services.ShoppingCartAPI.csproj", "{D52CD11B-2DD8-4855-B7EA-28C683EA91AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

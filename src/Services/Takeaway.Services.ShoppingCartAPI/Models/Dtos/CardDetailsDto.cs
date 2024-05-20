@@ -1,6 +1,6 @@
-﻿namespace Takeaway.Services.ShoppingCartAPI.Models
+﻿namespace Takeaway.Services.ShoppingCartAPI.Models.Dtos
 {
-    public class CardDetails
+    public class CardDetailsDto
     {
         /// <summary>
         /// 数量
@@ -11,5 +11,10 @@
         /// 产品Id
         /// </summary>
         public string ProductId { get; set; } = null!;
+
+        /// <summary>
+        /// 产品信息
+        /// </summary>
+        public ProductDto? ProductDto { get; set; }
     }
 }
