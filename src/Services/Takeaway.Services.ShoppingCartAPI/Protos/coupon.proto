@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option csharp_namespace = "Takeaway.Services.ShoppingCartAPI.Protos";
+
+message CouponRequest{
+	string coupon_code = 1;
+}
+
+message CouponProtoDto{
+	int32 coupon_id = 1;
+	string coupon_code = 2;
+	double discount_amount = 3;
+	int32 min_amount = 4;
+}
+
+message CouponResponse{
+	CouponProtoDto couponDto = 1;
+	bool IsSuccess = 2;
+	string Message = 3;
+}
+
+service CouponProtoService{
+	rpc GetCouponDto(CouponRequest) returns (CouponResponse);
+}

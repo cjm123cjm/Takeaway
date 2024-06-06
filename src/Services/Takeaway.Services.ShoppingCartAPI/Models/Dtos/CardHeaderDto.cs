@@ -2,10 +2,10 @@
 {
     public class CardHeaderDto
     {
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public string CouponCode { get; set; } = string.Empty;
 
-        public CardHeaderDto(int userId)
+        public CardHeaderDto(string userId)
         {
             UserId = userId;
         }
@@ -16,9 +16,9 @@
         public double DisCount { get; set; }
 
         /// <summary>
-        /// 总数
+        /// 总金额
         /// </summary>
-        public double CartTotal { get; set; }
+        public decimal CartTotal { get; set; }
 
         /// <summary>
         /// 购物车详情

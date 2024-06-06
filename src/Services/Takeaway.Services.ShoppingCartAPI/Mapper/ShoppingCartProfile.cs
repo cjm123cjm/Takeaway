@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Takeaway.Services.ShoppingCartAPI.Models;
 using Takeaway.Services.ShoppingCartAPI.Models.Dtos;
+using Takeaway.Services.ShoppingCartAPI.Protos;
 
 namespace Takeaway.Services.ShoppingCartAPI.Mapper
 {
@@ -10,6 +11,7 @@ namespace Takeaway.Services.ShoppingCartAPI.Mapper
         {
             CreateMap<CardDetails, CardDetailsDto>().ReverseMap();
             CreateMap<CardHeader, CardHeaderDto>().ReverseMap();
+            CreateMap<ProductProtoDto,ProductDto>().ReverseMap();
         }
     }
 }

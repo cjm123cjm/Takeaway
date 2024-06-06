@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 using Takeaway.Services.ShoppingCartAPI.Extensions;
+using Takeaway.Services.ShoppingCartAPI.Protos;
 using Takeaway.Services.ShoppingCartAPI.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -38,10 +40,32 @@ builder.Services.AddStackExchangeRedisCache(options =>
 });
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<ICartRepository, CartRepository>();
+
+//httpclient
 builder.Services.AddHttpClient("Product", config =>
 {
     config.BaseAddress = new Uri(builder.Configuration["ServiceUrls:ProductAPI"].ToString());
 });
+
+//rpc
+builder.Services.AddGrpcClient<ProductProtoService.ProductProtoServiceClient>(config =>
+{
+    config.Address = new Uri("http://localhost:7000");
+});
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddGrpcClient<CouponProtoService.CouponProtoServiceClient>(config =>
+{
+    config.Address = new Uri("http://localhost:7001");
+}).AddCallCredentials(async (context, metadata) =>
+{
+    var serviceProvider = builder.Services.BuildServiceProvider()!;
+    var httpContextAccessor = serviceProvider.GetRequiredService<IHttpContextAccessor>();
+    string? token = await httpContextAccessor.HttpContext!.GetTokenAsync("access_token");
+    if (!string.IsNullOrWhiteSpace(token))
+    {
+        metadata.Add("Authorization", $"Bearer {token}");
+    }
+}).ConfigureChannel(p => p.UnsafeUseInsecureChannelCallCredentials = true);
 
 var app = builder.Build();
 

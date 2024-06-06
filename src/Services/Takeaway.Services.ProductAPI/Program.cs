@@ -4,6 +4,7 @@ using Takeaway.Services.ProductAPI.Config;
 using Takeaway.Services.ProductAPI.Data;
 using Takeaway.Services.ProductAPI.Extensions;
 using Takeaway.Services.ProductAPI.Repositories;
+using Takeaway.Services.ProductAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +42,14 @@ builder.AddAppAuthetication();
 builder.Services.AddScoped<IProductContext, ProductContext>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
+builder.WebHost.ConfigureKestrel(option =>
+{
+    option.ConfigureEndpointDefaults(config =>
+    {
+        config.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2;
+    });
+});
+
 
 var app = builder.Build();
 
@@ -52,6 +61,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapGrpcService<ProductService>();
 
 app.MapControllers();
 

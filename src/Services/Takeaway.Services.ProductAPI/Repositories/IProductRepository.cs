@@ -18,6 +18,13 @@ namespace Takeaway.Services.ProductAPI.Repositories
         Task<ProductDto> GetProductAsync(string id);
 
         /// <summary>
+        /// 根据多个Id获取产品
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<IEnumerable<ProductDto>> GetProductsAsync(List<string> ids);
+
+        /// <summary>
         /// 根据名称获取产品
         /// </summary>
         /// <param name="name"></param>

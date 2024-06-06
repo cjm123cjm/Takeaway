@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.OpenApi.Models;
 using Takeaway.Services.CouponAPI.Extensions;
 using Takeaway.Services.CouponAPI.Repositories;
+using Takeaway.Services.CouponAPI.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +36,15 @@ builder.Services.AddSwaggerGen(option =>
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<ICouponRepository, CouponRepository>();
 
+builder.Services.AddGrpc();
+builder.WebHost.UseKestrel(option =>
+{
+    option.ConfigureEndpointDefaults(config =>
+    {
+        config.Protocols = HttpProtocols.Http2;
+    });
+});
+
 //ÊÚÈ¨
 builder.AddAppAuthetication();
 
@@ -48,6 +59,9 @@ if (app.Environment.IsDevelopment())
 }
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapGrpcService<CouponGrpcService>();
+
 app.MapControllers();
 
 app.Run();

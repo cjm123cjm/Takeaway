@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option csharp_namespace = "Takeaway.Services.ShoppingCartAPI.Protos";
+
+service ProductProtoService{
+	rpc GetProducts(ProductRequest) returns (ProductResponse);
+}
+message ProductRequest{
+	repeated string productIds = 1;
+}
+
+message ProductResponse{
+	repeated ProductProtoDto productDto = 1;
+	bool IsSuccess = 2;
+	string Message = 3;
+}
+
+message ProductProtoDto{
+	string product_id = 1;
+	string name = 2;
+	string description = 3;
+	string category_name = 4;
+	string image_url = 5;
+	double price = 6;
+}

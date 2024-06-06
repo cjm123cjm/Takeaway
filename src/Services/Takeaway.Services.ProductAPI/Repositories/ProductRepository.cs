@@ -39,6 +39,17 @@ namespace Takeaway.Services.ProductAPI.Repositories
         }
 
         /// <summary>
+        /// 根据多个Id获取产品
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<ProductDto>> GetProductsAsync(List<string> ids)
+        {
+            var products = await _productContext.Products.Find(t => ids.Contains(t.ProductId)).ToListAsync();
+            return _mapper.Map<IEnumerable<ProductDto>>(products);
+        }
+
+        /// <summary>
         /// 根据名称获取产品
         /// </summary>
         /// <param name="name"></param>
