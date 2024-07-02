@@ -35,7 +35,7 @@
 
 	<ItemGroup>
 	  <Protobuf Include="Protos\coupon.proto">
-	    <GrpcService>Server</GrpcService>
+	    <GrpcService>Client</GrpcService>
 	  </Protobuf>
 	  <Protobuf Include="Protos\product.proto">
 	    <GrpcService>Client</GrpcService>

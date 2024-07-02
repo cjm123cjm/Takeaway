@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.OpenApi.Models;
 using Takeaway.Services.CouponAPI.Extensions;
 using Takeaway.Services.CouponAPI.Repositories;
-using Takeaway.Services.CouponAPI.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,19 +29,12 @@ builder.Services.AddSwaggerGen(option =>
             },new string[]{}
         }
     });
+    option.SwaggerDoc("v1",
+        new OpenApiInfo { Title = "Takeaway.Services.CouponAPI", Version = "v1" });
 });
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<ICouponRepository, CouponRepository>();
-
-builder.Services.AddGrpc();
-builder.WebHost.UseKestrel(option =>
-{
-    option.ConfigureEndpointDefaults(config =>
-    {
-        config.Protocols = HttpProtocols.Http2;
-    });
-});
 
 //ÊÚÈ¨
 builder.AddAppAuthetication();
@@ -55,12 +46,13 @@ app.MigrateDatabase<Program>();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+    });
 }
 app.UseAuthentication();
 app.UseAuthorization();
-
-app.MapGrpcService<CouponGrpcService>();
 
 app.MapControllers();
 

@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Grpc.Core;
-using Takeaway.Services.ProductAPI.Protos;
-using Takeaway.Services.ProductAPI.Repositories;
+using Takeaway.Services.ProductGrpc.Protos;
+using Takeaway.Services.ProductGrpc.Repositories;
 
-namespace Takeaway.Services.ProductAPI.Services
+namespace Takeaway.Services.ProductGrpc.Services
 {
     public class ProductService : ProductProtoService.ProductProtoServiceBase
     {

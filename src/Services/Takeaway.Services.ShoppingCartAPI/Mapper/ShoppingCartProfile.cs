@@ -12,6 +12,7 @@ namespace Takeaway.Services.ShoppingCartAPI.Mapper
             CreateMap<CardDetails, CardDetailsDto>().ReverseMap();
             CreateMap<CardHeader, CardHeaderDto>().ReverseMap();
             CreateMap<ProductProtoDto,ProductDto>().ReverseMap();
+            CreateMap<CouponDto,CouponProtoDto>().ReverseMap();
         }
     }
 }

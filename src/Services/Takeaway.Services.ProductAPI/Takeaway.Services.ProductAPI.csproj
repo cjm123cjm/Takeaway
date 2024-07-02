@@ -14,12 +14,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Grpc.AspNetCore" Version="2.62.0" />
 		<PackageReference Include="MongoDB.Driver" Version="2.25.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
 		<PackageReference Include="AutoMapper" Version="13.0.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.29" />
-		<Protobuf Include="Protos\product.proto" GrpcService="Server" />
 	</ItemGroup>
 
 </Project>

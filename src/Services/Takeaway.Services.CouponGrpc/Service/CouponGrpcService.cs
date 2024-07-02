@@ -1,17 +1,19 @@
 ﻿using AutoMapper;
 using Grpc.Core;
-using Takeaway.Services.CouponAPI.Protos;
-using Takeaway.Services.CouponAPI.Repositories;
+using Microsoft.AspNetCore.Authorization;
+using Takeaway.Services.CouponGrpc.Protos;
+using Takeaway.Services.CouponGrpc.Repositories;
 
-namespace Takeaway.Services.CouponAPI.Service
+namespace Takeaway.Services.CouponGrpc.Service
 {
+    [Authorize]
     public class CouponGrpcService : CouponProtoService.CouponProtoServiceBase
     {
         private readonly ICouponRepository _couponRepository;
-        private readonly ILogger _logger;
+        private readonly ILogger<CouponGrpcService> _logger;
         private readonly IMapper _mapper;
 
-        public CouponGrpcService(ICouponRepository couponRepository, ILogger logger, IMapper mapper)
+        public CouponGrpcService(ICouponRepository couponRepository, ILogger<CouponGrpcService> logger, IMapper mapper)
         {
             _couponRepository = couponRepository;
             _logger = logger;

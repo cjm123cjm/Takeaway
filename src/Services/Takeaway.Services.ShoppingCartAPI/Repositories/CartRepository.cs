@@ -61,7 +61,7 @@ namespace Takeaway.Services.ShoppingCartAPI.Repositories
             if (couponResponse.IsSuccess)
             {
                 var coupon = _mapper.Map<CouponDto>(couponResponse.CouponDto);
-                if (coupon.MinAmount < cardHeaderDto.CartTotal)
+                if (coupon != null && coupon.MinAmount < cardHeaderDto.CartTotal)
                 {
                     cardHeaderDto.CartTotal -= decimal.Parse(coupon.DiscountAmount.ToString());
                     cardHeaderDto.DisCount = coupon.DiscountAmount;
@@ -76,13 +76,12 @@ namespace Takeaway.Services.ShoppingCartAPI.Repositories
         /// </summary>
         /// <param name="cart"></param>
         /// <returns></returns>
-        public async Task<CardHeaderDto> UpdateBasketAsync(CardHeaderDto cart)
+        public async Task UpdateBasketAsync(CardHeaderDto cart)
         {
             var modelCart = await _redisCache.GetStringAsync(cart.UserId.ToString());
             if (string.IsNullOrEmpty(modelCart))
             {
                 var entity = _mapper.Map<CardHeader>(cart);
-                entity.CardDetails.Add(_mapper.Map<CardDetails>(cart.CardDetails.First()));
 
                 //保存
                 await _redisCache.SetStringAsync(cart.UserId.ToString(), JsonConvert.SerializeObject(entity));
@@ -104,8 +103,6 @@ namespace Takeaway.Services.ShoppingCartAPI.Repositories
                 //保存
                 await _redisCache.SetStringAsync(cart.UserId.ToString(), JsonConvert.SerializeObject(entity));
             }
-
-            return await GetBasketAsync(cart.UserId);
         }
 
         /// <summary>
@@ -113,25 +110,22 @@ namespace Takeaway.Services.ShoppingCartAPI.Repositories
         /// </summary>
         /// <param name="cart"></param>
         /// <returns></returns>
-        public async Task<CardHeaderDto> RemoveBasketAsync(CardHeaderDto cart)
+        public async Task RemoveBasketAsync(RemoveProduct removeProduct)
         {
-            var modelCart = await _redisCache.GetStringAsync(cart.UserId.ToString());
-            var card = _mapper.Map<CardHeader>(cart);
+            var modelCart = await _redisCache.GetStringAsync(removeProduct.UserId);
             if (!string.IsNullOrEmpty(modelCart))
             {
                 var dto = JsonConvert.DeserializeObject<CardHeader>(modelCart)!;
-                var updateModel = card.CardDetails.First();
-                if (updateModel != null)
+
+                if (dto.CardDetails != null)
                 {
-                    var any = dto.CardDetails.FirstOrDefault(t => t.ProductId == updateModel.ProductId);
-                    if (any == null)
-                        dto.CardDetails.Remove(updateModel);
+                    var any = dto.CardDetails.FirstOrDefault(t => t.ProductId == removeProduct.ProductId);
+                    if (any != null)
+                        dto.CardDetails.Remove(any);
+
+                    await _redisCache.SetStringAsync(removeProduct.UserId, JsonConvert.SerializeObject(dto));
                 }
-
-                await _redisCache.SetStringAsync(card.UserId.ToString(), JsonConvert.SerializeObject(dto));
             }
-
-            return await GetBasketAsync(cart.UserId);
         }
 
         /// <summary>

@@ -5,7 +5,7 @@
         /// <summary>
         /// 用户Id
         /// </summary>
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         /// <summary>
         /// 优惠卷

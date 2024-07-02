@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "Takeaway.Services.CouponAPI.Protos";
+option csharp_namespace = "Takeaway.Services.CouponGrpc.Protos";
 
 message CouponRequest{
 	string coupon_code = 1;

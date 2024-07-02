@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
+using StackExchange.Redis;
 using Takeaway.Services.ShoppingCartAPI.Extensions;
 using Takeaway.Services.ShoppingCartAPI.Protos;
 using Takeaway.Services.ShoppingCartAPI.Repositories;
@@ -37,6 +39,10 @@ builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = builder.Configuration.GetValue<string>("CartSetting:ConnectionStrings");
     options.InstanceName = builder.Configuration.GetValue<string>("CartSetting:InstanceName");
+    //ConnectionMultiplexer.Connect("ip:¶Ë¿ÚºÅ£¬password=mypassword");
+    //var redisLocation = builder.Configuration.GetValue<string>("CartSetting:ConnectionStrings");
+    //var redisOptions = ConfigurationOptions.Parse(redisLocation);
+    //redisOptions.Password = builder.Configuration.GetValue<string>("CartSetting:Password");//ÄãµÄredisÃÜÂë
 });
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<ICartRepository, CartRepository>();
@@ -50,12 +56,12 @@ builder.Services.AddHttpClient("Product", config =>
 //rpc
 builder.Services.AddGrpcClient<ProductProtoService.ProductProtoServiceClient>(config =>
 {
-    config.Address = new Uri("http://localhost:7000");
+    config.Address = new Uri("http://localhost:8000");
 });
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddGrpcClient<CouponProtoService.CouponProtoServiceClient>(config =>
 {
-    config.Address = new Uri("http://localhost:7001");
+    config.Address = new Uri("http://localhost:8001");
 }).AddCallCredentials(async (context, metadata) =>
 {
     var serviceProvider = builder.Services.BuildServiceProvider()!;

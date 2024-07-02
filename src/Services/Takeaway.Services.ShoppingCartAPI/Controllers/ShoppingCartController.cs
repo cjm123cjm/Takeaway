@@ -6,23 +6,23 @@ using Takeaway.Services.ShoppingCartAPI.Repositories;
 
 namespace Takeaway.Services.ShoppingCartAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/cart")]
     [ApiController]
     [Authorize]
     public class ShoppingCartController : ControllerBase
     {
         private readonly ICartRepository _cartRepository;
-        private readonly ILogger _logger;
+        private readonly ILogger<ShoppingCartController> _logger;
         private ResponseDto _responseDto;
 
-        public ShoppingCartController(ICartRepository cartRepository, ILogger logger)
+        public ShoppingCartController(ICartRepository cartRepository, ILogger<ShoppingCartController> logger)
         {
             _cartRepository = cartRepository;
             _responseDto = new ResponseDto();
             _logger = logger;
         }
 
-        [HttpGet]
+        [HttpGet("{userId}")]
         public async Task<ResponseDto> GetBasket(string userId)
         {
             try
@@ -40,12 +40,11 @@ namespace Takeaway.Services.ShoppingCartAPI.Controllers
         }
 
         [HttpPost("UpdateBasket")]
-        public async Task<ResponseDto> UpdateBasket(CardHeaderDto cart)
+        public async Task<ResponseDto> UpdateBasket([FromBody] CardHeaderDto cart)
         {
             try
             {
-                var result = await _cartRepository.UpdateBasketAsync(cart);
-                _responseDto.Result = result;
+                await _cartRepository.UpdateBasketAsync(cart);
             }
             catch (Exception ex)
             {
@@ -57,18 +56,17 @@ namespace Takeaway.Services.ShoppingCartAPI.Controllers
         }
 
         [HttpPost("RemoveBasket")]
-        public async Task<ResponseDto> RemoveBasket(CardHeaderDto cart)
+        public async Task<ResponseDto> RemoveBasket([FromBody] RemoveProduct removeProduct)
         {
             try
             {
-                var result = await _cartRepository.RemoveBasketAsync(cart);
-                _responseDto.Result = result;
+                await _cartRepository.RemoveBasketAsync(removeProduct);
             }
             catch (Exception ex)
             {
                 _responseDto.IsSuccess = false;
                 _responseDto.Message = ex.Message;
-                _logger.LogError(ex, "RemoveBasket({cart})失败", cart);
+                _logger.LogError(ex, "RemoveBasket({removeProduct})失败", removeProduct);
             }
             return _responseDto;
         }
@@ -91,7 +89,7 @@ namespace Takeaway.Services.ShoppingCartAPI.Controllers
         }
 
         [HttpPost("ApplyCoupon")]
-        public async Task<ResponseDto> ApplyCoupon(CardHeaderDto cart)
+        public async Task<ResponseDto> ApplyCoupon([FromBody] CardHeaderDto cart)
         {
             try
             {
@@ -112,7 +110,7 @@ namespace Takeaway.Services.ShoppingCartAPI.Controllers
         }
 
         [HttpPost("RemoveCoupon")]
-        public async Task<ResponseDto> RemoveCoupon(CardHeaderDto cart)
+        public async Task<ResponseDto> RemoveCoupon([FromBody] CardHeaderDto cart)
         {
             try
             {

@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "Takeaway.Services.ProductAPI.Protos";
+option csharp_namespace = "Takeaway.Services.ProductGrpc.Protos";
 
 service ProductProtoService{
 	rpc GetProducts(ProductRequest) returns (ProductResponse);

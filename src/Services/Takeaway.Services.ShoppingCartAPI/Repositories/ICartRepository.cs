@@ -16,14 +16,14 @@ namespace Takeaway.Services.ShoppingCartAPI.Repositories
         /// </summary>
         /// <param name="cart"></param>
         /// <returns></returns>
-        Task<CardHeaderDto> UpdateBasketAsync(CardHeaderDto cart);
+        Task UpdateBasketAsync(CardHeaderDto cart);
 
         /// <summary>
         /// 移除商品
         /// </summary>
         /// <param name="cart"></param>
         /// <returns></returns>
-        Task<CardHeaderDto> RemoveBasketAsync(CardHeaderDto cart);
+        Task RemoveBasketAsync(RemoveProduct removeProduct);
 
         /// <summary>
         /// 清空购物车
